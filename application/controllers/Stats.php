@@ -61,7 +61,7 @@ class Stats extends CI_Controller {
 
 		var_dump($data);
 
-		$this->load->view('updated', array('data'=>$data));
+		$this->load->view('stats', array('data'=>$data));
 	}
 
 }
