@@ -1,1 +1,1 @@
-stats
+stats: <?php echo $onlineCom; ?>

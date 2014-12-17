@@ -58,10 +58,10 @@ class Stats extends CI_Controller {
 	{
 		$this->load->database();
 		$data = $this->db->query('SELECT * from tracking')->result_array();
+		$onlineCom = @exec("ls /writeback/os*.cow | wc -l");
+//		var_dump($data);
 
-		var_dump($data);
-
-		$this->load->view('stats', array('data'=>$data));
+		$this->load->view('stats', array('data'=>$data,'onlineCom'=>intval($onlineCom)));
 	}
 
 }
