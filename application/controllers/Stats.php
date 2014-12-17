@@ -37,7 +37,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Update extends CI_Controller {
+class Stats extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -57,35 +57,13 @@ class Update extends CI_Controller {
 	public function index()
 	{
 		$this->load->database();
-//		$query = $this->db->query('SELECT * from tracking');
-		$onlineCom = exec("ls /writeback/os*.cow | wc -l");	
-		$data = array(
-               		'no' => intval($onlineCom),
-	            );
+		$data = $this->db->query('SELECT * from tracking')->result_array();
 
-		$this->db->insert('tracking', $data); 
+		var_dump($data);
 
-		$this->load->view('updated', array('no'=>$onlineCom));
+		$this->load->view('updated', array('data'=>$data));
 	}
 
-	public function MixPanel(){
-		require 'application/libraries/mixpanel-php-master/lib/Mixpanel.php';
-
-		// get the Mixpanel class instance, replace with your project token
-		$mp = Mixpanel::getInstance("2f1fb4c9915e8ad04242d37cd051619b");
-		$onlineCom = @exec("ls /writeback/os*.cow | wc -l");
-		$data['online'] = intval($onlineCom);
-		$data['time'] = time();
-		$mp->track("online_user", $data);
-	}
-		
-	public function trackingSeat(){
-	   $this->load->database();
-		$onlineCom = exec("ls -al /writeback/os*.cow");
-
-		var_dump($onlineCom);
-	
-	}
 }
 
 /* End of file welcome.php */
